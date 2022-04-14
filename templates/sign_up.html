@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="plantbg">
+{% include 'header.html' %}
+        <div class="signup-form">
+            <form method="POST" class="form-container" action="{% url 'sign_up' %}">
+                {% csrf_token %}
+                {% if error %}
+
+                <h2 style="color:red">
+                    {{error}}
+                </h2>
+                {% elif success %}
+                <h2>
+                    {{success}}
+                </h2>
+                {% else %}
+                <h2></h2>
+                {% endif %}
+
+                <label for="username"> <i class="fa-solid fa-user"></i> Username </label>
+                <input type="text" name="username" {% if error %} value={{context.uname}} {%else%} value='' {%endif%}
+                    placeholder="Enter UserName" required>
+                <br>
+
+                <label for="first-name"> <i class="fa-solid fa-user"></i> First Name </label>
+                <input type="text" name="first-name" {% if error %} value={{context.fname}} {%else%} value='' {%endif%}
+                    placeholder="Enter First Name" maxlength="32" minlength="3" pattern="[A-Za-z]{1,32}" required>
+                <br>
+
+                <label for="Last-name"> <i class="fa-solid fa-user"></i> Last Name </label>
+                <input type="text" name="last-name" {% if error %} value={{context.lname}} {%else%} value='' {%endif%}
+                    placeholder="Enter Last Name" maxlength="32" minlength="3" pattern="[A-Za-z]{1,32}">
+                <br>
+
+                <label for="email"> <i class="fa-solid fa-envelope"></i> Email </label>
+                <input type="email" name="email" {% if error %} value={{context.email}} {%else%} value='' {%endif%}
+                    placeholder="Enter Email ID" required>
+                <br>
+
+                <label for="contact"> <i class="fa-solid fa-phone"></i> Contact </label>
+                <input type="text" name="contact" {% if error %} value={{context.contact}} {%else%} value='' {%endif%}
+                    placeholder="Enter Contact Number" required>
+                <br>
+
+                <label for="password"> <i class="fa-solid fa-user-lock"></i> Password </label>
+                <input type="password" name="pass1" placeholder="Enter your password" required>
+                <br>
+
+                <label for="password"> <i class="fa-solid fa-key"></i> Confirm your password </label>
+                <input type="password" name="pass2" placeholder="Confirm your password" required>
+                <br>
+                <br>
+                <button type="submit" class="submit" name="signup">Sign Up</button>
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}

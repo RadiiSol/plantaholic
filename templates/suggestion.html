@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="bg2">
+{% include 'header.html' %}
+        <form method="POST" action="{% url 'suggestion' %}">
+        {% csrf_token %}
+        <div class="suggest">
+            <img src="{% static 'images/Suggestion/360_F_266923731_GNp7iwYkjvfXgRgTIrU4OXFyOye9wVy2.jpg'%}" alt="Suggestion">
+            <label for="">
+                    Your suggestions are much appreciated, they help us improve and make the user experience better.
+                    We are sorry if you encountered any difficulty using our website. With ur response we will surely
+                    fix
+                    the error so that other's experience is not ruined.
+                </label>
+            <input id="expand" type="text" name = "message" placeholder="Enter your suggestions here">
+            <span></span>
+            {%if user.is_authenticated%}
+            <button type="submit" class="submit">Submit</button>
+            {%else%}
+            <p class="error">
+                You need to Login to give suggestions
+            </p>
+            {%endif%}
+            {% if success %}
+            <p class="success">
+                {{success}}
+            </p>
+            {% endif %}
+        </div>
+        </form>
+
+        <div class="contact" id="contact">
+            <p>
+                Contact us.
+            </p>
+            <div>
+                <a href="mailto:shantnupoonia4010@gmail.com,mihirpg2014@gmail.com"> <i class="fa-solid fa-envelope-circle-check icon"></i> </a>
+
+                <a href="https://www.instagram.com/_plant.aholic_"><i class="fa-brands fa-instagram icon"></i> </a>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

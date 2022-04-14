@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="bg1 settings-page-container">
+{% include 'header.html' %}
+<div class="change">
+
+            {% for d in datas %}
+            <div class="information">
+                <h2> Your current information </h2>
+                <p>
+                    <b>Username :</b> {{d.user}}
+                </p>
+                <p>
+                    <b>Name :</b> {{d.firstname}} {{d.lastname}}
+                </p>
+                <p>
+                    <b>Email Address :</b> {{d.user.email}}
+                </p>
+                <p>
+                    <b>Contact :</b> {{d.contact}}
+                </p>
+                <p>
+                    <b>Last Login :</b> {{last_login}}
+                </p>
+            </div>
+            {% endfor %}
+
+            <div class="change-form">
+                <form method="POST" action="{% url 'settings' %}" class="change-container">
+                    {% csrf_token %}
+                    <h2>
+                        Enter the information you want to change.
+                    </h2>
+                    <p>
+
+                        <i class="fa-solid fa-user"></i> <input type="text" name="firstname" placeholder="Enter First Name" maxlength="32" minlength="3" pattern="[A-Za-z]{1,32}">
+                    </p>
+                    <br>
+                    <p>
+
+                        <i class="fa-solid fa-user"></i> <input type="text" name="lastname" placeholder="Enter Last Name" maxlength="32" minlength="3" pattern="[A-Za-z]{1,32}">
+                    </p>
+                    <br>
+                    <p>
+
+                        <i class="fa-solid fa-envelope"></i> <input type="email" name="email" placeholder="Enter Email ID">
+                    </p>
+                    <br>
+                    <p>
+
+                        <i class="fa-solid fa-phone"></i> <input type="tel" name="contact" placeholder="Enter Contact" pattern="[0-9]{10}">
+                    </p>
+                    <br>
+                    <p>
+
+                        <i class="fa-solid fa-key"></i> <input type="password" name="pass1" placeholder="Enter password to confirm it is you" required>
+                    </p>
+                    <br>
+                    {%if error%}
+                    <div class="error">
+                        <p>
+                            {{error}}
+                        </p>
+                    </div>
+                    {%elif success%}
+                    <div class="success">
+                        <p>
+                            {{success}}
+                        </p>
+                    </div>
+                    {%endif%}
+                    <br>
+                    <button type="submit" class="submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

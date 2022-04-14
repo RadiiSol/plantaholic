@@ -1,0 +1,171 @@
+{% url 'indoor_plants' as indoor_plants %}
+{% url 'outdoor_plants' as outdoor_plants %}
+{% url 'gallery' as gallery %}
+{% url 'plant_growth' as plant_growth %}
+{% url 'plant_protection' as plant_protection %}
+{% url 'garden_tools' as garden_tools %}
+{% url 'suggestion' as suggestion %}
+{% load static %}
+
+        <header>
+            <div class="header-visible">
+                <div class="logoname">
+                    <a href="{% url 'index' %}"> <img id="logopic"
+                            src="{% static 'images/depositphotos_75677281-stock-illustration-abstract-sphere-green-leaf-logo-removebg-preview.png'%}"
+                            alt="leaf logo"></a>
+                    <h2 href="{% url 'index' %}">Plantaholic</h2>
+                </div>
+                <nav>
+                    <ul class="nav_links">
+                        <li>
+                            <div class="dropdown">
+                                <i class="fa-solid fa-seedling"></i>
+                                <i class="fa-solid fa-hand-holding-seedling"></i>
+                                <button class="menubtn1 {% if request.path == indoor_plants or request.path == outdoor_plants %} active {%endif%}" >Plants</button>
+                                <i class="fa fa-caret-down"></i>
+                                <div class="dropdown-plants">
+                                    <a class="links-hidden {% if request.path == indoor_plants %} active {%endif%}" href="{% url 'indoor_plants' %}">Indoor plants</a>
+                                    <a class="links-hidden {% if request.path == outdoor_plants %} active {%endif%}" href="{% url 'outdoor_plants' %}">Outdoor plants</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li> <i class="fa-brands fa-envira"></i>
+                            <a class="{% if request.path == gallery %} active {%endif%}" href="{% url 'gallery' %}">Gallery</a>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <i class="fa-solid fa-tree"></i>
+                                <button class="menubtn2 {% if request.path == plant_growth or request.path == plant_protection or request.path == garden_tools %} active {%endif%}">Plant care</button>
+                                <i class="fa fa-caret-down"></i>
+                                <div class="dropdown-care">
+                                    <a class="links-hidden {% if request.path == plant_growth %} active {%endif%}" href="{% url 'plant_growth' %}">Plant growth</a>
+                                    <a class="links-hidden {% if request.path == plant_protection %} active {%endif%}" href="{% url 'plant_protection' %}">Plant protection</a>
+                                    <a class="links-hidden {% if request.path == garden_tools %} active {%endif%}" href="{% url 'garden_tools' %}">Garden tools</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+
+                <div class="rightnav">
+                    <div>
+                        {%if user.is_authenticated%}
+                        <div class="dropdown">
+                            <div class="user-header">
+                                <div class="user-div">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <button class="menubtn3">{{request.user}}</button>
+                                </div>
+                                <div class="dropdown-user">
+                                    <a class="links-hidden" href="{% url 'log_out' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                                    <a class="links-hidden" href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i> Change account settings</a>
+                                </div>
+                            </div>
+                        </div>
+                        {%else%}
+                        <button class="login-btn open-button" onclick="openForm()">Log in</button>
+                        {%endif%}
+                    </div>
+                    <span class="nav-lines" style="cursor: pointer" onclick="openNav()">&#9776;</span>
+                </div>
+
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" id="x-button" onclick="closeNav()">&times;</a>
+                    <ul class="nav_links">
+                        <li>
+                            <div class="dropdown">
+                                <i class="fa-solid fa-seedling"></i>
+                                <!-- <i class="fa-solid fa-hand-holding-seedling"></i> -->
+                                <button class="menubtn1 {% if request.path == indoor_plants or request.path == outdoor_plants %} active {%endif%}" >Plants</button>
+                                <i class="fa fa-caret-down"></i>
+                                <div class="dropdown-plants">
+                                    <a class="links-hidden {% if request.path == indoor_plants %} active {%endif%}" href="{% url 'indoor_plants' %}">Indoor plants</a>
+                                    <a class="links-hidden {% if request.path == outdoor_plants %} active {%endif%}" href="{% url 'outdoor_plants' %}">Outdoor plants</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="gallery-sidenav"> <i class="fa-brands fa-envira"></i>
+                               <a href="{% url 'gallery' %}"> <button class="{% if request.path == gallery %} active {%endif%} menubtn2" >Gallery</button></a></div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <i class="fa-solid fa-tree"></i>
+                                <button class="menubtn2 {% if request.path == plant_growth or request.path == plant_protection or request.path == garden_tools %} active {%endif%}">Plant care</button>
+                                <i class="fa fa-caret-down"></i>
+                                <div class="dropdown-care">
+                                    <a class="links-hidden {% if request.path == plant_growth %} active {%endif%}" href="{% url 'plant_growth' %}">Plant growth</a>
+                                    <a class="links-hidden {% if request.path == plant_protection %} active {%endif%}" href="{% url 'plant_protection' %}">Plant protection</a>
+                                    <a class="links-hidden {% if request.path == garden_tools %} active {%endif%}" href="{% url 'garden_tools' %}">Garden tools</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            {%if user.is_authenticated%}
+                            <div class="dropdown">
+                                <div class="user-header">
+                                    <div class="user-div">
+                                        <i class="fa-solid fa-circle-user"></i>
+                                        <button class="menubtn3">{{request.user}}</button>
+                                    </div>
+                                <div class="dropdown-user">
+                                    <a class="links-hidden" href="{% url 'log_out' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                                    <a class="links-hidden" href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i> Change account settings</a>
+                                </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <button class="login-btn open-button" onclick="openForm()">Log in</button>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+
+        </header>
+
+        <div class="form-popup" id="myForm">
+            <form method="POST" action="{% url 'login' %}" class="form-container">
+                {% csrf_token %}
+                <h1 class="form_title">
+                    Login
+                </h1>
+                <div class="fields">
+
+                    {% if lerror %}
+                    <h2 class="error"><i class="fa-solid fa-triangle-exclamation"></i> {{lerror}} </h2>
+                    {%endif%}
+
+                    <label for="email"> <b>
+
+                            <h3> <i class="fa-solid fa-envelope"></i> Email </h3>
+                        </b> </label>
+                    <input type="email" placeholder="xyz@abc.com" name="login_email" required>
+
+                    <label for="psw"> <b>
+
+                            <h3> <i class="fa-solid fa-key"></i> Password </h3>
+                        </b> </label>
+                    <input type="password" placeholder="Enter Password" name="login_pass" required>
+                    <input type="hidden" name="next" value="{{ request.path }}">
+
+
+                </div>
+
+                <span>
+                    First time here? <i> <a href="{% url 'sign_up' %}"> Sign up </a> </i>
+                </span>
+
+                <!-- <div class="buttons"> -->
+                <button type="submit" class="btn login">Login</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                <!-- </div> -->
+            </form>
+        </div>
+
+        <!-- <div class="homeimg">
+        <img src="1671370.jpg" alt="">
+    </div> -->
+        <button onclick="topFunction()" id="myBtn" title="Go to top"> <i class="fa-solid fa-circle-arrow-up"> </i> Back
+            to
+            top </button>
