@@ -31,6 +31,4 @@ urlpatterns = [
     path('garden_tools', views.garden_tools, name='garden_tools'),
     path('suggestion', views.suggestion, name='suggestion'),
     path('user/', include("account.urls")),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
