@@ -12,7 +12,6 @@ from django.contrib.auth.hashers import check_password
 def sign_up(request):
     if request.method == "POST":
         if 'signup' in request.POST:
-            print("Signup Button is clicked")
             pass1 = request.POST['pass1']
             pass2 = request.POST['pass2']
             username = request.POST['username']
@@ -51,7 +50,6 @@ def sign_up(request):
             else:
                 return render(request, 'sign_up.html', {'error': "Passwords Should Be Greater Than 6", 'context': context})
     else:
-        # print(username, firstname, lastname, email, pass1, pass2)
         return render(request, 'sign_up.html')
 
 
@@ -65,19 +63,18 @@ def login(request):
         render_next = next + ".html"
         render_next = render_next[1:]
         render_next = render_next.replace('user/', '')
-        print(render_next)
         if User.objects.filter(email=email).exists():
             user_details = User.objects.filter(email=email)
             user = authenticate(request, username=user_details[0].username, password=psw)
             if user is not None:
                 auth.login(request, user)
                 next = request.POST['next']
-
                 return redirect(next)
             else:
                 return render(request, render_next, {'lerror': "Invalid Login Details"})
         else:
             return render(request, render_next, {'lerror': "Invalid Login Details"})
+    return redirect('index')
 
 
 def log_out(request):
