@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from account.models import ExtendUser
 from django.core.mail import EmailMessage
 from django.conf import settings
 # from .models import User, ExtendUser
@@ -35,16 +36,15 @@ def garden_tools(request):
 
 def suggestion(request):
     if request.method == "POST":
+        datas = ExtendUser.objects.get(user=request.user)
         message = request.POST['message']
-        send_to_email = {
-            "mihirpg2014@gmail.com", "shantnu4010@gmail.com"
-        }
+        user_details_message = "\n\n\nUserName = " + str(datas.user) + "\nName = " + datas.firstname + " " + datas.lastname + "\nEmail = " + datas.user.email
+        message = message + user_details_message
 
         email = EmailMessage(
             'Suggestion Form | Plantaholic',
             message,
-            settings.EMAIL_HOST_USER,
-            send_to_email,
+            to=['mihirpg2014@gmail.com', 'shantnupoonia4010@gmail.com']
         )
 
         email.fail_silently = False
